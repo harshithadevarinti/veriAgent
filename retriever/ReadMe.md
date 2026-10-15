@@ -5,7 +5,7 @@
 
 ## Setup
 1. pip install -r requirements.txt
-2. Download chroma_db.zip: [DRIVE LINK]. Unzip to `retriever/chroma_db`.
+2. Download chroma_db.zip: (https://drive.google.com/file/d/1Y59cvm-UG0q8OtPZpBZZtRkxrZYsvZe_/view?usp=sharing). Unzip to `retriever/chroma_db`.
 3. Test: `python -m retriever.retriever`
 
 ## Corpus
