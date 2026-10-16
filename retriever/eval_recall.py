@@ -1,10 +1,13 @@
+import sys
 import json
 import chromadb
 from retriever.retriever import retrieve
 
+RERANK = len(sys.argv) > 1 and sys.argv[1] == "rerank"
+print("Reranker:", "ON" if RERANK else "OFF")
+
 claims = json.load(open("data/eval_claims.json", encoding="utf-8"))
 
-# Only score claims whose gold page actually exists in the index
 col = chromadb.PersistentClient(path="retriever/chroma_db").get_collection("wiki_evidence")
 indexed = {m["source"] for m in col.get(include=["metadatas"])["metadatas"]}
 claims = [c for c in claims if any(p in indexed for p in c["gold_pages"])]
@@ -15,7 +18,7 @@ hits = {k: 0 for k in KS}
 misses = []
 
 for i, c in enumerate(claims):
-    results = retrieve(c["claim"], k=max(KS))
+    results = retrieve(c["claim"], k=max(KS), rerank=RERANK)
     sources = [e.source for e in results]
     gold = set(c["gold_pages"])
     found = False
@@ -32,5 +35,6 @@ print()
 for k in KS:
     print(f"recall@{k}: {hits[k] / len(claims):.3f}")
 
-json.dump(misses[:50], open("data/recall_misses.json", "w"), indent=1)
-print(f"{len(misses)} claims missed at k=10 (first 50 saved to data/recall_misses.json)")
+out = "data/recall_misses_rerank.json" if RERANK else "data/recall_misses.json"
+json.dump(misses[:50], open(out, "w"), indent=1)
+print(f"{len(misses)} claims missed at k=10 (first 50 saved to {out})")
