@@ -1,6 +1,16 @@
+# Environment / secrets
+.env
+.env.local
+
+# Python
 venv/
+__pycache__/
+*.pyc
+
+# Data / retriever
 data/
 retriever/chroma_db/
 chroma_db.zip
-__pycache__/
-*.pyc
+
+# Testing
+.pytest_cache/

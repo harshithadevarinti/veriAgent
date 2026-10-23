@@ -1,0 +1,12 @@
+[
+  {"claim": "Fox 2000 Pictures released the film Soul Food.", "label": "SUPPORTS"},
+  {"claim": "Telemundo is a English-language television network.", "label": "REFUTES"},
+  {"claim": "There is a capital called Mogadishu.", "label": "SUPPORTS"},
+  {"claim": "The Cretaceous ended.", "label": "SUPPORTS"},
+  {"claim": "Charles Manson has been proven innocent of all crimes.", "label": "REFUTES"},
+  {"claim": "Edgar Wright is a person.", "label": "SUPPORTS"},
+  {"claim": "Saxony is in Ireland.", "label": "REFUTES"},
+  {"claim": "Aristotle spent time in Athens.", "label": "SUPPORTS"},
+  {"claim": "Magic Johnson did not play for the Lakers.", "label": "REFUTES"},
+  {"claim": "Michigan is not a U.S. state.", "label": "REFUTES"}
+]

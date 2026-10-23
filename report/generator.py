@@ -1,8 +1,9 @@
 from agents.schemas import Verdict
+def _clean_source(source: str) -> str:
+    return source.replace("-LRB-", "(").replace("-RRB-", ")")
 
 
 def generate_report(verdicts: list[Verdict]) -> dict:
-    """Turns a list of claim-level Verdicts into a structured report."""
     total = len(verdicts)
     supported = sum(1 for v in verdicts if v.label == "SUPPORTED")
     refuted = sum(1 for v in verdicts if v.label == "REFUTED")
@@ -19,7 +20,10 @@ def generate_report(verdicts: list[Verdict]) -> dict:
                 "label": v.label,
                 "confidence": v.confidence,
                 "rationale": v.rationale,
-                "evidence": [{"text": e.text, "source": e.source, "score": e.score} for e in v.evidence],
+                "evidence": [
+                    {"text": e.text, "source": _clean_source(e.source), "score": e.score}
+                    for e in v.evidence
+                ],
             }
             for v in verdicts
         ],
